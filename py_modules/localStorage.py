@@ -27,14 +27,17 @@ def inject_js(web_content, context) -> None:
     dump_path = storage_dump_file()
     if not dump_path:
         return
+
+    localStorage = ""
     try:
         with open(dump_path, "r", encoding="utf-8") as f:
             localStorage =  f.read()
-    except Exception as e:
-        tooltip(f"localStorage read error: {e}")
+    except:
+        pass
 
-    web_content.head += f"<script type='application/json' id='localStorage-old'>{localStorage}</script>"
-    web_content.js.append(js_url("localStorage.load.js"))
+    if localStorage:
+        web_content.head += f"<script type='application/json' id='localStorage-old'>{localStorage}</script>"
+        web_content.js.append(js_url("localStorage.load.js"))
     web_content.js.append(js_url("localStorage.save.js")) # creates a listener
 
 def save_listener(handled, cmd, context):
