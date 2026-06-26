@@ -1,12 +1,12 @@
 (() => {
-    window.__localStorage_isLoading = true; // prevent triggering save callback while loading
+    window.__localStorage_isLoading = true; // prevent triggering the save callback while loading
     try {
-        const json_str = document.getElementById('localStorage-old').textContent;
-        Object.entries(JSON.parse(json_str)).forEach(([key, value]) => {
+        const localStorage_json = document.getElementById('localStorage-old').textContent;
+        Object.entries(JSON.parse(localStorage_json)).forEach(([key, value]) => {
             localStorage.setItem(key, value);
         });
     } catch(e) {
-        console.error("[LocalStorage] Load error ", e);
+        console.error("localStorage load error ", e);
     } finally {
         window.__localStorage_isLoading = false;
     }
