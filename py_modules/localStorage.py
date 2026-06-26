@@ -37,13 +37,13 @@ def inject_js(web_content, context) -> None:
     web_content.js.append(js_url("localStorage.load.js"))
     web_content.js.append(js_url("localStorage.save.js")) # creates a listener
 
-def save_listener(handled, message, context):
+def save_listener(handled, cmd, context):
     prefix = "save_localStorage::"
-    if not message.startswith(prefix):
+    if not cmd.startswith(prefix):
         return handled
 
     try:
-        localStorage_json = message[len(prefix):]
+        localStorage_json = cmd[len(prefix):]
         with open(storage_dump_file(), "w", encoding="utf-8") as f:
             f.write(localStorage_json)
     except Exception as e:
