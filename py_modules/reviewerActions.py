@@ -2,8 +2,8 @@ from aqt import gui_hooks, mw
 from aqt.reviewer import Reviewer
 
 def actions_listener(handled, cmd, context):
-    # if not isinstance(context, Reviewer):
-    #     return handled
+    if not isinstance(context, Reviewer):
+        return handled
 
     # 1. Bury and Susupend
     if cmd == "action::bury_card":
